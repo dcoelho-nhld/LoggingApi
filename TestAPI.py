@@ -12,9 +12,11 @@ class TestAPI(Resource):
     @token_auth.login_required
     def post(self):
         try:
-            # Get the body, which should be a JSON Array of JSON Objects
-            dictionary_list = request.get_json()
-            # For each JSON Object in the Array, try to create a log entry
+            # Get the body, which should be a JSON Array of JSON Objects for multiple log entries or only a JSON
+            # object for single entries
+            data = request.get_json()
+            dictionary_list = data if isinstance(data, list) else [data]
+            # For each JSON Object, try to create a log entry
             # Store the successful log entries in a list and error messages from invalid logs in another list
             logs = []
             errors = []
@@ -30,6 +32,7 @@ class TestAPI(Resource):
         except TypeError as te:
             return "Error:" + str(te), 418
         except AttributeError as ae:
+            error = ae.with_traceback()
             return "Error:" + str(ae), 418
 
     @staticmethod

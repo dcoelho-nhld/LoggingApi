@@ -3,6 +3,7 @@ import dateutil.parser
 class LogEntry:
 
     def __init__(self, dictionary):
+
         # Get the log details from the dictionary
         datetime_string = dictionary.get("datetime", None)
         self.log_datetime = dateutil.parser.parse(datetime_string) if datetime_string is not None else None

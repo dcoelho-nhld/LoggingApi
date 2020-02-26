@@ -1,2 +1,2 @@
 token = "test"
-tokens = ["test", "test2"]
+tokens = ["test", "test3"]
